@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Lab3 - {{ title }}</title>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        <br>
+        <a href="/">Main Page</a>
+        <br>
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for field in fields %}
+                        <th>{{ field }}</th>
+                    {% endfor %}
+                    <th>delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                        <td>
+                            <form method="post" action="/travels/delete/">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <input type="hidden" name="id" value="{{ row.0 }}">
+                                <button type="submit">delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <form method="post" action="/travels/add/">
+            <h2>Add city to travels</h2>
+			<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            City: 
+            <select name="city">
+                {% for city in cities %}
+                    <option value="{{ city.0 }}">{{ city.1 }}</option>
+                {% endfor %}
+            </select>
+            <br>
+			<p><b>departure date:  </b>
+				<input name="date1" type="date">
+			</p>
+			<p><b>arrival date:  </b>
+				<input name="date2" type="date">
+			</p>
+			<br>
+            <button type="submit">Add</button>
+        </form>
+		</br>
+		<form action="/travels/trigger/" method="post">
+        {% csrf_token %}
+        <button type="submit" value="OnTrigger" name="trigger" class="btn btn-info" >Turn on trigger</button>
+        <button type="submit" value="OffTrigger" name="trigger" class="btn btn-info" >Turn off trigger</button>
+		</form>
+    </body>
+</html>

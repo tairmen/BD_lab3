@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Lab3 - {{ title }}</title>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        <br>
+        <a href="/">Main Page</a>
+        <br>
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for field in fields %}
+                        <th>{{ field }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    </body>
+</html>
